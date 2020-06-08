@@ -26,9 +26,11 @@ export default class ClockList extends React.Component {
                 {this.props.clockList.map((clock) => (
                     <Clock
                         key={clock.id}
+                        id={clock.id}
                         currentTime={this.state.date}
                         clockName={clock.name}
                         UTCMod={Number(clock.timezone)}
+                        onDeleteClockHandler={this.props.onDeleteClockHandler}
                     />
                 ))}
             </div>

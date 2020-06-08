@@ -32,6 +32,10 @@ const ClockMain = (props) => {
         setNewTimeZone(value);
     };
 
+    const onDeleteClockHandler = (id) => {
+        setClockList([...clockList.filter((clock) => clock.id !== id)])
+    }
+
     return (
         <div>
             <ClockInput
@@ -41,7 +45,7 @@ const ClockMain = (props) => {
                 onNameInputChange={onNameInputChange}
                 onTimeZoneInputChange={onTimeZoneInputChange}
             />
-            <ClockList clockList={clockList} />
+            <ClockList clockList={clockList} onDeleteClockHandler={onDeleteClockHandler} />
         </div>
     );
 };
