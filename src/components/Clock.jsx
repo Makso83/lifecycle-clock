@@ -18,7 +18,7 @@ function Clock(props) {
     };
 
     return (
-        <div className='Clock__clock-container'>
+        <div className="Clock__clock-container">
             <div className="Clock__clock-wrapper">
                 <h5>{props.clockName}</h5>
                 <div className="Clock__hour-arrow" style={hourStyle}></div>

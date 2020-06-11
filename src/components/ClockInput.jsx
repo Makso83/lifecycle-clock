@@ -1,29 +1,31 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import PropTypes from "prop-types";
 
 function ClockInput(props) {
-    const {
-        newCity,
-        newTimeZone,
-        onSubmitHandler,
-        onNameInputChange,
-        onTimeZoneInputChange,
-    } = props;
+    const [name, setName] = useState("");
+    const [timeZone, setTimeZone] = useState(0);
 
     const nameInput = useRef();
     const timeZoneInput = useRef();
 
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        props.onSubmitHandler(name, timeZone);
+        setName("");
+        setTimeZone(0);
+    };
+
     return (
         <div>
             <form
-                onSubmit={onSubmitHandler}
+                onSubmit={handleSubmit}
                 className="ClockInput__form_grid-wrapper">
                 <input
                     type="text"
                     id="clockName"
-                    value={newCity}
+                    value={name}
                     ref={nameInput}
-                    onChange={() => onNameInputChange(nameInput.current.value)}
+                    onChange={() => setName(nameInput.current.value)}
                     className="ClockInput__form__inputclockname"
                 />
                 <label
@@ -34,26 +36,28 @@ function ClockInput(props) {
                 <input
                     type="number"
                     ref={timeZoneInput}
-                    value={newTimeZone}
+                    value={timeZone}
                     id="timezone"
-                    onChange={() =>
-                        onTimeZoneInputChange(timeZoneInput.current.value)
-                    }
+                    onChange={() => setTimeZone(timeZoneInput.current.value)}
                     className="ClockInput__form__inputtimezone"
                 />
-                <label htmlFor="timezone" className="ClockInput__form__labeltimezone">Временная зона</label>
-                <input type="submit" value="Добавить"  className="ClockInput__form__submit" />
+                <label
+                    htmlFor="timezone"
+                    className="ClockInput__form__labeltimezone">
+                    Временная зона
+                </label>
+                <input
+                    type="submit"
+                    value="Добавить"
+                    className="ClockInput__form__submit"
+                />
             </form>
         </div>
     );
 }
 
 ClockInput.propTypes = {
-    newCity: PropTypes.string,
-    newTimeZone: PropTypes.number,
-    onSubmitHandler: PropTypes.func,
-    onNameInputChange: PropTypes.func,
-    onTimeZoneInputChange: PropTypes.func,
+    onSubmitHandler: PropTypes.func.isRequired,
 };
 
 export default ClockInput;

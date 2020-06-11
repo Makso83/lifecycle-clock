@@ -8,16 +8,17 @@ export default class ClockList extends React.Component {
         this.state = {
             date: moment().utc(),
         };
+        this.timerId = null;
     }
 
     componentDidMount() {
-        setInterval(() => {
+        this.timerId = setInterval(() => {
             this.setState({ date: moment().utc() });
         }, 1000);
     }
 
     componentWillUnmount() {
-        clearInterval();
+        clearInterval(this.timerId);
     }
 
     render() {
